@@ -20,8 +20,8 @@ class NetworkDevice:
         remote_device = {
             "device_type": self.device_type,
             "host": self.host_id,
-            "username": self.credentials.get("Username"),
-            "password": self.credentials.get("Password"),
+            "username": self.credentials.get("username"),
+            "password": self.credentials.get("password"),
         }
         if self.device_type == "autodetect":
             try:
