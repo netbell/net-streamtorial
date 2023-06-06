@@ -15,7 +15,7 @@ user = os.getenv("NET_TEXT_USER")
 pw = os.getenv("NET_TEXT_PASS")
 
 
-if not user or pw:
+if not user and pw:
         with st.expander("Credentials", expanded=True):
             user = st.text_input("Username")
             pw = st.text_input("Password", type="password")
