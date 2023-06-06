@@ -9,7 +9,7 @@ Under the hood, this tool is leveraging [Netmiko](https://github.com/ktbyers/net
 
 
 ## Features
-- **It just works**: Set your device CLI credentials as environment variables and let it rip! No need to define a device type! All device types are automagically determined using Netmiko's awesome `ssh_autodetect` module.
+- **It just works**: Set your device CLI credentials as environment variables or enter in the web interface! Device types are automagically determined using Netmiko's awesome `ssh_autodetect` module but can be set manually to increase response time.
 - **Vendor agnostic**: This tool is not built for a particular vendor. With vendor-agnostic libraries being used under the hood, many different device vendors and device types are supported. See [Device Support](#device-support) section for more details.
 
 ## Get Started
@@ -24,7 +24,7 @@ pip3 install -r requirements.txt
 
 ## Basic Usage
 
-1. Set your device CLI credentials as environment variables. The variable key names are `NET_TEXT_USER` and `NET_TEXT_PASS`. This can also be accomplished by creating a .env file with the same values. If the variables are not set the interface will request username and password. 
+1. Set your device CLI credentials as environment variables. The variable key names are `NET_TEXT_USER` and `NET_TEXT_PASS`. This can also be accomplished by creating a .env file with the same values. If the variables are not set, the interface will request username and password. 
 
     ```shell
     NET_TEXT_USER=<your username>
