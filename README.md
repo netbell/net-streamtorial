@@ -35,7 +35,7 @@ pip3 install -r requirements.txt
     ```shell
     streamlit run net.py
     ```
-3. Enter the hostname/IP of the device and a valid 'show' command, hit enter or clock 'Run'
+3. Enter the hostname/IP of the device and a valid 'show' command, hit enter or click 'Run'
 
     ![screenshot2](https://github.com/netbell/net-streamtorial/assets/47117028/5a1bf32c-7627-432f-bf37-6623891a3b89)
 
