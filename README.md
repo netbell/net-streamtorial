@@ -9,7 +9,7 @@ Under the hood, this tool is leveraging [Netmiko](https://github.com/ktbyers/net
 
 
 ## Features
-- **It just works**: Set your device CLI credentials as environment variables and let it rip! No need to define a device type! All device types are automagically determined using Netmiko's awesome `ssh_autodetect` module.
+- **It just works**: Set your device CLI credentials as environment variables or enter in the web interface! Device types are automagically determined using Netmiko's awesome `ssh_autodetect` module but can be set manually to increase response time.
 - **Vendor agnostic**: This tool is not built for a particular vendor. With vendor-agnostic libraries being used under the hood, many different device vendors and device types are supported. See [Device Support](#device-support) section for more details.
 
 ## Get Started
@@ -24,7 +24,7 @@ pip3 install -r requirements.txt
 
 ## Basic Usage
 
-1. Set your device CLI credentials as environment variables. The variable key names are `NET_TEXT_USER` and `NET_TEXT_PASS`. If device CLI credentials are not set, the default value of *admin* is set for both username and password. This can also be accomplished by creating a .env file with the same values.
+1. Set your device CLI credentials as environment variables. The variable key names are `NET_TEXT_USER` and `NET_TEXT_PASS`. This can also be accomplished by creating a .env file with the same values. If the variables are not set, the interface will request username and password. 
 
     ```shell
     NET_TEXT_USER=<your username>
@@ -35,9 +35,9 @@ pip3 install -r requirements.txt
     ```shell
     streamlit run net.py
     ```
-3. Enter the hostname/IP of the device and a valid 'show' command, hit enter or clock 'Run'
+3. Enter the hostname/IP of the device and a valid 'show' command, hit enter or click 'Run'
 
-    ![Screenshot-1](https://github.com/netbell/net-streamtorial/assets/47117028/7177a5df-5de0-4a61-9427-f8472bfacc24)
+    ![screenshot2](https://github.com/netbell/net-streamtorial/assets/47117028/5a1bf32c-7627-432f-bf37-6623891a3b89)
 
 
 ## Supported Devices/Parsers
@@ -54,11 +54,11 @@ Any device that is supported by Netmiko can be used with this tool. Under the ho
 
 ### Parser Support
 
-With Genie and ntc-templates (TextFSM) being the two major parsing libraries in the game, there's a goal to support both libraries. Currently, only ntc-templates is supported and used to parse all command output. Genie parsers will be supported in the future.
+Currently, only ntc-templates is supported and used to parse all command output.
 
 
 ## Demo
 
-https://github.com/netbell/net-streamtorial/assets/47117028/4927f098-e418-4ea0-b1ed-45942538977d
+https://github.com/netbell/net-streamtorial/assets/47117028/27df49b1-8cbf-4d23-8135-586ba0a9b7f0
 
 
