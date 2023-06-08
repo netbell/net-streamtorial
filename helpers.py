@@ -28,52 +28,42 @@ class NetworkDevice:
                 guesser = SSHDetect(**remote_device)
                 best_match = guesser.autodetect()
                 remote_device["device_type"] = best_match
+                st.caption(f"autodetect: {best_match}")
             except NetmikoTimeoutException as e:
-                st.exception(e)
+                st.error("Connection timed out")
                 self.connection = None
             except NetmikoAuthenticationException as e:
-                st.exception(e)
+                st.error("Authentication error")
                 self.connection = None
         try:
             self.connection = ConnectHandler(**remote_device)
         except NetmikoTimeoutException as e:
-            st.exception(e)
+            st.error("Connection timed out")
             self.connection = None
         except NetmikoAuthenticationException as e:
-            st.exception(e)
+            st.error("Authentication error")
             self.connection = None
 
-    def get_device_info(self, user_input):
-        command_list = user_input.split(" ")
-        try:
-            ipaddress.ip_address(command_list[0])
-            host = command_list[0]
-        except ValueError:
-            host = command_list[0]
+    def get_device_info(self, command):
+
+        raw_output = None
+        parsed_output = None
 
         if self.connection is not None:
             try:
-                if command_list[1] != "show":
-                    raise Exception("Only 'show' commands are supported.")
+                if command.split()[0] != "show":
+                    st.error("Only 'show' commands are supported.")
                 else:
-                    raw_output = self.connection.send_command((" ".join(command_list[1:])))
-                    parsed_output = self.connection.send_command((" ".join(command_list[1:])), use_textfsm=True)
-                    if not parsed_output:
-                        parsed_output = "N/A"
-            except (NetmikoTimeoutException, NetmikoAuthenticationException, Exception) as e:
+                    raw_output = self.connection.send_command(command.lower())
+                    parsed_output = self.connection.send_command(command.lower(), use_textfsm=True)
+            
+            except Exception as e: 
                 st.exception(e)
-                raw_output = None
-                parsed_output = None
-        else:
-            raw_output = None
-            parsed_output = None
 
         if raw_output and ("invalid input" in raw_output.lower() or "invalid command" in raw_output.lower()):
-            raw_output = "Invalid command sent to the device."
-            parsed_output = None
+            raw_output, parsed_output = None, None
+            st.error("Invalid command sent to the device.")
 
-        if parsed_output and "\n" in parsed_output:
-            parsed_output = None
         else:
             try:
                 iter(parsed_output)

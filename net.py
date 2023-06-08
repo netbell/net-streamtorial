@@ -7,6 +7,7 @@ from helpers import NetworkDevice
 st.set_page_config(page_title="Net-Streamtorial",
                    layout="wide", page_icon="🔧")
 
+
 # Load the environmental variables
 load_dotenv()
 
@@ -14,11 +15,10 @@ load_dotenv()
 user = os.getenv("NET_TEXT_USER")
 pw = os.getenv("NET_TEXT_PASS")
 
-
-if not user and pw:
-        with st.expander("Credentials", expanded=True):
-            user = st.text_input("Username")
-            pw = st.text_input("Password", type="password")
+if not (user and pw):
+    with st.expander("Credentials", expanded=True):
+        user = st.text_input("Username")
+        pw = st.text_input("Password", type="password")
 
 creds = {"username": user, "password": pw}
 
@@ -60,19 +60,19 @@ if run:
 
     # Execute the command and get the output
     with st.spinner('Executing command...'):
-        raw_output, parsed_output = network_device.get_device_info(f"{device} {command}")
+        raw_output, parsed_output = network_device.get_device_info(command)
 
     with tab1:
         st.header("Raw Output")
         if raw_output is None:
-            st.warning("No data to display.")
+            pass
         else:
             st.code(raw_output, language="cisco", line_numbers=False)
 
     with tab2:
         st.header("Parsed Output")
         if parsed_output is None:
-            st.warning("No data to display.")
+            pass
         else:    
             st.code(parsed_output, language="json", line_numbers=False)
 
@@ -82,7 +82,7 @@ if run:
             df = pd.read_json(parsed_output)
             st.dataframe(df, use_container_width=True, height=1000)
         except ValueError:
-            st.warning("No data to display")
+            pass
 else:
     with tab1:
         st.header("Raw Output")
